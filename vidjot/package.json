@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/giangster/NodeJS-Express-MongoDB-course/issues"
   },
-  "homepage": "https://github.com/giangster/NodeJS-Express-MongoDB-course#readme"
+  "homepage": "https://github.com/giangster/NodeJS-Express-MongoDB-course#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
