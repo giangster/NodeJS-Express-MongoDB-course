@@ -1,0 +1,19 @@
+{
+  "name": "vidjot",
+  "version": "1.0.0",
+  "description": "Video ideas creating app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giangster/NodeJS-Express-MongoDB-course.git"
+  },
+  "author": "Giang Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giangster/NodeJS-Express-MongoDB-course/issues"
+  },
+  "homepage": "https://github.com/giangster/NodeJS-Express-MongoDB-course#readme"
+}
