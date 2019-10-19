@@ -14,6 +14,10 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
+//Load Idea Model
+require("./models/Idea");
+const Idea = mongoose.model("ideas");
+
 //Handlebars Middleware
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
