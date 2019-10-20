@@ -38,6 +38,11 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
+//Ideas Route
+app.get("/ideas", (req, res) => {
+  res.render("ideas");
+});
+
 //Add Ideas Form
 app.get("/ideas/add", (req, res) => {
   res.render("ideas/add");
@@ -57,7 +62,13 @@ app.post("/ideas", (req, res) => {
       details: req.body.details
     });
   } else {
-    res.send("OK");
+    const newUser = {
+      title: req.body.title,
+      details: req.body.details
+    };
+    new Idea(newUser).save().then(idea => {
+      res.redirect("/ideas");
+    });
   }
 });
 
