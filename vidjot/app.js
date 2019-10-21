@@ -38,9 +38,15 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-//Ideas Route
+//Ideas Page
 app.get("/ideas", (req, res) => {
-  res.render("ideas");
+  Idea.find({})
+    .sort({ date: "desc" })
+    .then(ideas => {
+      res.render("ideas/index", {
+        ideas: ideas
+      });
+    });
 });
 
 //Add Ideas Form
