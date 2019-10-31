@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/giangster/NodeJS-Express-MongoDB-course#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
     "mongoose": "^5.7.5"
   }
 }
