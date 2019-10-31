@@ -114,7 +114,10 @@ app.post("/ideas", (req, res) => {
 app.put("/ideas/:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea => {
     (idea.title = req.body.title), (idea.details = req.body.details);
-    idea.save().then(res.redirect("/ideas"));
+    idea.save().then(idea => {
+      req.flash("success_msg", "Video idea successfully updated.");
+      res.redirect("/ideas");
+    });
   });
 });
 
