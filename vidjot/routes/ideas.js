@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = router;
 
 //Ideas Page
-app.get("/ideas", (req, res) => {
+router.get("/ideas", (req, res) => {
   Idea.find({})
     .sort({ date: "desc" })
     .then(ideas => {
@@ -15,19 +15,19 @@ app.get("/ideas", (req, res) => {
 });
 
 //Add Ideas Form
-app.get("/ideas/add", (req, res) => {
+router.get("/ideas/add", (req, res) => {
   res.render("ideas/add");
 });
 
 //Edit Idea Form
-app.get("/ideas/edit/:id", (req, res) => {
+router.get("/ideas/edit/:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea =>
     res.render("ideas/edit", { idea: idea })
   );
 });
 
 //Form Process
-app.post("/ideas", (req, res) => {
+router.post("/ideas", (req, res) => {
   let errors = [];
 
   req.body.title ? null : errors.push({ text: "Please add a title" });
@@ -51,7 +51,7 @@ app.post("/ideas", (req, res) => {
 });
 
 //Edit Form Process
-app.put("/ideas/:id", (req, res) => {
+router.put("/ideas/:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea => {
     (idea.title = req.body.title), (idea.details = req.body.details);
     idea.save().then(idea => {
@@ -62,7 +62,7 @@ app.put("/ideas/:id", (req, res) => {
 });
 
 //Delete Idea
-app.delete("/ideas/:id", (req, res) => {
+router.delete("/ideas/:id", (req, res) => {
   Idea.remove({ _id: req.params.id }).then(() => {
     req.flash("success_msg", "Video idea successfully deleted.");
     res.redirect("/ideas");
