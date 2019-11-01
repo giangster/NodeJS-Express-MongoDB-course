@@ -4,37 +4,37 @@ const router = express.Router();
 module.exports = router;
 
 //Ideas Page
-router.get("/ideas", (req, res) => {
+router.get("/", (req, res) => {
   Idea.find({})
     .sort({ date: "desc" })
     .then(ideas => {
-      res.render("ideas/index", {
+      res.render("/index", {
         ideas: ideas
       });
     });
 });
 
 //Add Ideas Form
-router.get("/ideas/add", (req, res) => {
-  res.render("ideas/add");
+router.get("//add", (req, res) => {
+  res.render("/add");
 });
 
 //Edit Idea Form
-router.get("/ideas/edit/:id", (req, res) => {
+router.get("//edit/:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea =>
-    res.render("ideas/edit", { idea: idea })
+    res.render("/edit", { idea: idea })
   );
 });
 
 //Form Process
-router.post("/ideas", (req, res) => {
+router.post("/", (req, res) => {
   let errors = [];
 
   req.body.title ? null : errors.push({ text: "Please add a title" });
   req.body.details ? null : errors.push({ text: "Please add some details" });
 
   if (errors.length > 0) {
-    res.render("ideas/add", {
+    res.render("/add", {
       errors: errors,
       title: req.body.title,
       details: req.body.details
@@ -45,26 +45,26 @@ router.post("/ideas", (req, res) => {
       details: req.body.details
     };
     new Idea(newUser).save().then(idea => {
-      res.redirect("/ideas");
+      res.redirect("/");
     });
   }
 });
 
 //Edit Form Process
-router.put("/ideas/:id", (req, res) => {
+router.put("//:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea => {
     (idea.title = req.body.title), (idea.details = req.body.details);
     idea.save().then(idea => {
       req.flash("success_msg", "Video idea successfully updated.");
-      res.redirect("/ideas");
+      res.redirect("/");
     });
   });
 });
 
 //Delete Idea
-router.delete("/ideas/:id", (req, res) => {
+router.delete("//:id", (req, res) => {
   Idea.remove({ _id: req.params.id }).then(() => {
     req.flash("success_msg", "Video idea successfully deleted.");
-    res.redirect("/ideas");
+    res.redirect("/");
   });
 });
