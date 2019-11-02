@@ -1,28 +1,33 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 
 module.exports = router;
+
+//Load Idea Model
+require("../models/Idea");
+const Idea = mongoose.model("ideas");
 
 //Ideas Page
 router.get("/", (req, res) => {
   Idea.find({})
     .sort({ date: "desc" })
     .then(ideas => {
-      res.render("/index", {
+      res.render("ideas/index", {
         ideas: ideas
       });
     });
 });
 
 //Add Ideas Form
-router.get("//add", (req, res) => {
-  res.render("/add");
+router.get("/add", (req, res) => {
+  res.render("ideas/add");
 });
 
 //Edit Idea Form
-router.get("//edit/:id", (req, res) => {
+router.get("/edit/:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea =>
-    res.render("/edit", { idea: idea })
+    res.render("ideas/edit", { idea: idea })
   );
 });
 
@@ -45,26 +50,26 @@ router.post("/", (req, res) => {
       details: req.body.details
     };
     new Idea(newUser).save().then(idea => {
-      res.redirect("/");
+      res.redirect("/ideas");
     });
   }
 });
 
 //Edit Form Process
-router.put("//:id", (req, res) => {
+router.put("/:id", (req, res) => {
   Idea.findOne({ _id: req.params.id }).then(idea => {
     (idea.title = req.body.title), (idea.details = req.body.details);
     idea.save().then(idea => {
       req.flash("success_msg", "Video idea successfully updated.");
-      res.redirect("/");
+      res.redirect("/ideas");
     });
   });
 });
 
 //Delete Idea
-router.delete("//:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   Idea.remove({ _id: req.params.id }).then(() => {
     req.flash("success_msg", "Video idea successfully deleted.");
-    res.redirect("/");
+    res.redirect("/ideas");
   });
 });

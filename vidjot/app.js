@@ -8,6 +8,9 @@ const session = require("express-session");
 
 const app = express();
 
+//Load routes
+const ideas = require("./routes/ideas");
+
 //Connect to Mongoose
 mongoose
   .connect("mongodb://localhost/vidjot-dev", {
@@ -17,10 +20,6 @@ mongoose
   })
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
-
-//Load Idea Model
-require("./models/Idea");
-const Idea = mongoose.model("ideas");
 
 //Handlebars Middleware
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -72,6 +71,9 @@ app.get("/users/login", (req, res) => {
 app.get("/users/register", (req, res) => {
   res.send("login");
 });
+
+//Use routes
+app.use("/ideas", ideas);
 
 const port = 5000;
 
