@@ -47,7 +47,7 @@ router.post("/register", (req, res) => {
           "error_msg",
           "There is already a user with that email. Please log in."
         );
-        res.redirect("/users/login").catch(err => console.log(err));
+        res.redirect("/users/login");
       } else {
         const newUser = {
           name: req.body.name,
