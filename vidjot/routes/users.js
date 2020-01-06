@@ -20,6 +20,13 @@ router.get("/register", (req, res) => {
   res.render("users/register");
 });
 
+//User logout
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "Logout successfully");
+  res.redirect("/users/login");
+});
+
 //Login form POST
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
@@ -54,7 +61,7 @@ router.post("/register", (req, res) => {
       if (user) {
         req.flash(
           "error_msg",
-          "There is already a user with that email. Please log in."
+          "There is already a user with that email. Try login"
         );
         res.redirect("/users/login");
       } else {
@@ -69,7 +76,7 @@ router.post("/register", (req, res) => {
             if (err) throw err;
             newUser.password = hash;
             new User(newUser).save().then(user => {
-              req.flash("success_msg", "Registration completed. Please log in");
+              req.flash("success_msg", "Registration completed. Please login");
               res.redirect("/users/login").catch(err => console.log(err));
             });
           });
