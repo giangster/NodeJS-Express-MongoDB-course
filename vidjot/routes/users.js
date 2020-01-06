@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-// const passport = require("passport");
+const passport = require("passport");
 
 module.exports = router;
 
@@ -20,7 +20,16 @@ router.get("/register", (req, res) => {
   res.render("users/register");
 });
 
-//Register form post
+//Login form POST
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/ides",
+    failureRedirect: "/users/login",
+    failureFlash: true
+  })(req, res, next);
+});
+
+//Register form POST
 router.post("/register", (req, res) => {
   let errors = [];
 
