@@ -46,6 +46,10 @@ app.use(
   })
 );
 
+//Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(flash());
 
 //Global variables
